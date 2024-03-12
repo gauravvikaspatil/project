@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login and Signup Page</title>
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: url('/sign-bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            background-image: url('/login-bg.jpg');
+            background-size: cover;
+            text-align: center;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 90%;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            font-size: 14px;
+            color: #555555;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #0099ff;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #0099ff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0077cc;
+        }
+
+        p {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #000000;
+        }
+
+        a {
+            color: #0271bb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #df1f1f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="loginForm">
+            <h2>Login</h2>
+            <input type="text" id="loginUsername" placeholder="Username" required>
+            <input type="password" id="loginPassword" placeholder="Password" required>
+            <button onclick="login()">Login</button>
+        </div>
+        <div id="signupForm" style="display: none;">
+            <h2>Sign up</h2>
+            <input type="text" id="signupUsername" placeholder="Username" required>
+            <input type="password" id="signupPassword" placeholder="Password" required>
+            <button onclick="signup()">Sign up</button>
+        </div>
+        <p>Don't have an account? <a href="#" onclick="toggleForm()">Sign up</a></p>
+        <p>Already have an account? <a href="#" onclick="toggleForm()">Login</a></p>
+    </div>
+
+    <script>
+        console.log("to see the users-console.log(localStorage.getItem('users')); ");
+        function toggleForm() {
+            var loginForm = document.getElementById('loginForm');
+            var signupForm = document.getElementById('signupForm');
+
+            if (loginForm.style.display === 'none') {
+                loginForm.style.display = 'block';
+                signupForm.style.display = 'none';
+            } else {
+                loginForm.style.display = 'none';
+                signupForm.style.display = 'block';
+            }
+        }
+
+        function login() {
+            var username = document.getElementById('loginUsername').value;
+            var password = document.getElementById('loginPassword').value;
+
+            // Retrieve the stored user data from local storage
+            var usersData = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Check if the username and password match
+            var user = usersData.find(function(item) {
+                return item.username === username && item.password === password;
+            });
+
+            if (user) {
+                alert('Login successful!');
+                // Redirect to another website with user data
+                window.location.href = "/E-Learn.html";
+            } else {
+                alert('Invalid username or password!');
+            }
+        }
+
+        function signup() {
+            var username = document.getElementById('signupUsername').value;
+            var password = document.getElementById('signupPassword').value;
+
+            // Retrieve the stored user data from local storage
+            var usersData = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Check if the username already exists
+            var userExists = usersData.some(function(item) {
+                return item.username === username;
+            });
+
+            if (userExists) {
+                alert('Username already exists! Please choose a different username.');
+            } else {
+                // Add the new user to the data
+                usersData.push({
+                    username: username,
+                    password: password
+                });
+
+                // Store the updated user data in local storage
+                localStorage.setItem('users', JSON.stringify(usersData));
+
+                alert('Signup successful! You can now login.');
+                toggleForm(); // Switch to the login form
+            }
+        }
+    </script>
+</body>
+</html>
+<!-- console.log(localStorage.getItem('users')); -->

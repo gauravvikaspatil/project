@@ -1,0 +1,740 @@
+
+<!DOCTYPE html>
+<head>
+  <title>Programming Quiz</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url("/quizzbgg.jpg");
+     
+    }
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #000000;
+      color: #fff;
+      height: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+      z-index: 999;
+    }
+  
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+  
+    .logo img {
+      width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+    cursor: pointer;
+    }
+  
+    .logo h1 {
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+  
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+  
+    nav ul li {
+      margin: 0 15px;
+      position: relative;
+    }
+   
+  
+    nav ul li a {
+      color: rgb(149, 145, 145);
+      text-decoration: none;
+      font-size: 18px;
+      position: relative;
+      z-index: 1;
+     
+    }
+  
+    nav ul li a:before {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: transparent;
+      transform: scaleX(0);
+      transition: transform 0.3s ease-in-out;
+      transform-origin: center;
+    }
+  
+    nav ul li a:hover {
+      color: white;
+      
+    }
+  
+    nav ul li a:hover:before {
+      transform: scaleX(1);
+    }
+  
+    .search-bar {
+      display: flex;
+      align-items: center;
+      padding-right: 14px;
+    }
+  
+    .search-bar input {
+      width: 160px;
+      padding: 5px;
+      font-size: 14px;
+      border: none;
+      border-radius: 20px 0 0 20px;
+      outline: none;
+      background-color: #222;
+      color: #fff;
+    }
+  
+    .search-bar button {
+      padding: 5px 10px;
+      font-size: 14px;
+      background-color: #555;
+      color: #fff;
+      border: none;
+      border-radius: 0 20px 20px 0;
+      cursor: pointer;
+      outline: none;
+    }
+  
+    /* Updated CSS for the home icon */
+    .home-icon {
+      position: relative;
+      z-index: 1;
+      transition: transform 0.2s ease-in-out;
+    }
+    .home-icon:before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      border-radius: 50%;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+  
+    .home-icon:hover {
+      color:aqua;
+      transform: scale(1.3);
+     
+    }
+    .upload-icon{
+      position: relative;
+      z-index: 1;
+      transition: transform 0.3s ease-in-out;
+    }
+    .upload-icon:before
+    {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      border-radius: 50%;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+    .upload-icon:hover
+    {
+      color: #23d20f;
+      transform: scale(1.3);
+    }
+  
+    .home-icon:hover:before {
+      opacity: 1;
+    }
+  
+    /* Disable underline on hover */
+    nav ul li a:hover {
+      text-decoration: none;
+      transform: scaleX(1);
+    }
+  
+    @media screen and (max-width: 768px) {
+      .logo {
+        margin-right: 10px;
+      }
+  
+      .search-bar {
+        margin-left: 10px;
+      }
+  
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+      }
+  
+      nav ul li {
+        margin: 5px 0;
+      }
+    }
+    /* Responsive styles */
+    @media screen and (max-width: 600px) {
+      header img {
+        height: 60px;
+      }
+
+      header h1 {
+        font-size: 28px;
+      }
+
+      nav ul {
+        flex-direction: column;
+      }
+
+      nav li {
+        margin: 10px 0;
+      }
+    }
+
+    h2 {
+      padding: 90px;
+      text-align: center;
+      color: #333;
+      margin-bottom: 40px;
+    }
+
+    form {
+      
+      max-width: 600px;
+      margin: 0 auto;
+      background-image: url('/quizz-bg.jpg');
+      background-size: cover;
+      background-position: center;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    .question p {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .choices label {
+      display: block;
+      margin-bottom: 10px;
+      color: #555;
+    }
+
+    .submit-btn {
+      margin-top: 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn:before,
+    .submit-btn:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.3);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .submit-btn:before {
+      transform: rotate(-45deg) translateX(-200%);
+    }
+
+    .submit-btn:after {
+      transform: rotate(45deg) translateX(200%);
+    }
+
+    .submit-btn:hover:before,
+    .submit-btn:hover:after {
+      opacity: 1;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #333;
+      text-align: center;
+      font-size: 20px;
+    }
+
+    .correct-answer {
+      font-weight: bold;
+      color: green;
+    }
+
+    .highlight {
+      background-color: #f9f9f9;
+    }
+
+    /* Additional CSS for creative effects */
+    .submit-btn:hover:before,
+    .submit-btn:hover:after {
+      transition-delay: 0.1s;
+    }
+
+    .submit-btn:hover:before {
+      transform: rotate(-45deg) translateX(0);
+    }
+
+    .submit-btn:hover:after {
+      transform: rotate(45deg) translateX(0);
+    }
+
+    .submit-btn span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .score {
+      font-size: 24px;
+      margin-top: 30px;
+    }
+
+    .score span {
+      color: #ff5722;
+      font-weight: bold;
+    }
+
+    .feedback {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .feedback p {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .feedback .good-job {
+      color: #4caf50;
+    }
+
+    .feedback .try-again {
+      color: #f44336;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header section -->
+  <header>
+    <div class="logo">
+      <img src="/logo.jpg" alt="Logo">
+      <h1>E-Learn</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="/E-Learn.html"><i class="fas fa-home home-icon"></i></a></li>
+        <li><a href="/subjects.html">Subjects</a></li>
+        <li><a href="/syllabus.html">Syllabus</a></li>
+        <li><a href="/prev.html">Prev Q&amp;A</a></li>
+        <li><a href="/compilers.html"></i>Compiler</a></li>
+        <li><a class="up" href="mailto:riteshkantilalpatil@gmail.com?subject= for class=      ,subject=       ,your_info=      &"><i class="fas fa-upload upload-icon"></i></a></li>
+      </ul>
+    </nav>
+    <div class="search-bar">
+      <input type="text" placeholder="Search">
+      <button type="submit"><i class="fas fa-search"></i></button>
+    </div>
+  </header>
+
+  <h2>Programming Quiz</h2>
+
+  <form id="quiz-form">
+    <div class="question">
+      <p>1. What does HTML stand for?</p>
+      <div class="choices">
+        <label>
+          <input type="radio" name="q1" value="a">
+          a) Hyper Text Markup Language
+        </label>
+        <label>
+          <input type="radio" name="q1" value="b">
+          b) Hyperlinks and Text Markup Language
+        </label>
+        <label>
+          <input type="radio" name="q1" value="c">
+          c) Home Tool Markup Language
+        </label>
+        <label>
+          <input type="radio" name="q1" value="d">
+          d) None of the above
+        </label>
+      </div>
+    </div>
+
+    <div class="question">
+      <p>2. Which of the following is NOT a programming language?</p>
+      <div class="choices">
+        <label>
+          <input type="radio" name="q2" value="a">
+          a) Python
+        </label>
+        <label>
+          <input type="radio" name="q2" value="b">
+          b) Java
+        </label>
+        <label>
+          <input type="radio" name="q2" value="c">
+          c) CSS
+        </label>
+        <label>
+          <input type="radio" name="q2" value="d">
+          d) JavaScript
+        </label>
+      </div>
+    </div>
+
+    <!-- Add more questions as needed -->
+    <div class="question">
+      <p>3. What is the output of the following code snippet?<br><br>
+        <code>print(2 + 2 * 3 - 1)</code>
+      </p>
+      <div class="choices">
+        <label>
+          <input type="radio" name="q3" value="a">
+          a) 6
+        </label>
+        <label>
+          <input type="radio" name="q3" value="b">
+          b) 20
+        </label>
+        <label>
+          <input type="radio" name="q3" value="c">
+          c) 8
+        </label>
+        <label>
+          <input type="radio" name="q3" value="d">
+          d) 7
+        </label>
+      </div>
+    </div>
+
+    <div class="question">
+      <p>4. What is the correct syntax to create a function in Python?</p>
+      <div class="choices">
+        <label>
+          <input type="radio" name="q4" value="a">
+          a) function myFunction():
+        </label>
+        <label>
+          <input type="radio" name="q4" value="b">
+          b) def myFunction():
+        </label>
+        <label>
+          <input type="radio" name="q4" value="c">
+          c) new function myFunction():
+        </label>
+        <label>
+          <input type="radio" name="q4" value="d">
+          d) void myFunction():
+        </label>
+      </div>
+    </div>
+
+    <div class="question">
+      <p>5. Which of the following data types is NOT primitive in Java?</p>
+      <div class="choices">
+        <label>
+          <input type="radio" name="q5" value="a">
+          a) int
+        </label>
+        <label>
+          <input type="radio" name="q5" value="b">
+          b) boolean
+        </label>
+        <label>
+          <input type="radio" name="q5" value="c">
+          c) string
+        </label>
+        <label>
+          <input type="radio" name="q5" value="d">
+          d) char
+        </label>
+      </div>
+    </div>
+
+    <div class="question">
+      <p>6. Which data structure uses a Last-In-First-Out (LIFO) order?</p>
+      <div class="choices">
+        <label>
+          <input type="radio" name="q6" value="a">
+          a) Queue
+        </label>
+        <label>
+          <input type="radio" name="q6" value="b">
+          b) Stack
+        </label>
+        <label>
+          <input type="radio" name="q6" value="c">
+          c) Array
+        </label>
+        <label>
+          <input type="radio" name="q6" value="d">
+          d) Linked List
+        </label>
+      </div>
+    </div>
+
+    <div class="question">
+      <p>7. In Python, how do you convert a string to uppercase?</p>
+      <div class="choices">
+        <label>
+          <input type="radio" name="q7" value="a">
+          a) string.upper()
+        </label>
+        <label>
+          <input type="radio" name="q7" value="b">
+          b) string.toUpperCase()
+        </label>
+        <label>
+          <input type="radio" name="q7" value="c">
+          c) string.upperCase()
+        </label>
+        <label>
+          <input type="radio" name="q7" value="d">
+          d) string.toUpper()
+        </label>
+      </div>
+    </div>
+
+    <div class="question">
+      <p>8.In object-oriented programming, which principle states "a subclass can have only one superclass, but a superclass can have multiple subclasses"?<br>
+      </p>
+      <div class="choices">
+        <label>
+          <input type="radio" name="q8" value="a">
+          a) Abstraction
+        </label>
+        <label>
+          <input type="radio" name="q8" value="b">
+          b) Polymorphism
+        </label>
+        <label>
+          <input type="radio" name="q8" value="c">
+          c) Inheritance
+        </label>
+        <label>
+          <input type="radio" name="q8" value="d">
+          d) Encapsulation
+        </label>
+      </div>
+    </div>
+
+    <div class="question">
+      <p>9.What does the "SQL" acronym stand for?</p>
+      <div class="choices">
+        <label>
+          <input type="radio" name="q9" value="a">
+          a) Structured Query Language
+        </label>
+        <label>
+          <input type="radio" name="q9" value="b">
+          b) Server Query Language
+        </label>
+        <label>
+          <input type="radio" name="q9" value="c">
+          c) Simple Query Language
+        </label>
+        <label>
+          <input type="radio" name="q9" value="d">
+          d) Standard Query Language
+        </label>
+      </div>
+    </div>
+
+    <div class="question">
+      <p>10. Which statement is used to exit a loop in Python?</p>
+      <div class="choices">
+        <label>
+          <input type="radio" name="q10" value="a">
+          a) continue
+        </label>
+        <label>
+          <input type="radio" name="q10" value="b">
+          b) break
+        </label>
+        <label>
+          <input type="radio" name="q10" value="c">
+          c) return
+        </label>
+        <label>
+          <input type="radio" name="q10" value="d">
+          d) exit
+        </label>
+      </div>
+    </div>
+
+    <button class="submit-btn" type="submit"><span>Submit</span></button>
+  </form>
+
+  <div id="result" class="result" style="display: none;"></div>
+
+  <script>
+  // Get the form element and result div
+const form = document.getElementById('quiz-form');
+const resultDiv = document.getElementById('result');
+
+// Event listener for form submission
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  // Correct answers for each question
+  const answers = {
+    q1: 'a',
+    q2: 'c',
+    q3: 'd',
+    q4: 'b',
+    q5: 'c',
+    q6: 'b',
+    q7: 'a',
+    q8: 'c',
+    q9: 'a',
+    q10: 'b',
+  };
+
+  let score = 0;
+  let feedbackHTML = '';
+
+  // Iterate over each question and check the selected answer
+  for (let i = 1; i <= 10; i++) {
+    const question = 'q' + i;
+    const selectedAnswer = form.elements[question].value;
+
+    if (selectedAnswer === '') {
+      feedbackHTML += `<p>Question ${i}: Not Attended</p>`;
+    } else if (selectedAnswer === answers[question]) {
+      score++;
+      feedbackHTML += `<p class="correct-answer">Question ${i}: Correct</p>`;
+    } else {
+      feedbackHTML += `<p>Question ${i}: Incorrect. The correct answer is ${answers[question]}</p>`;
+    }
+  }
+
+  // Calculate the percentage score
+  const percentageScore = (score / 10) * 100;
+
+  // Prepare the result message
+  let resultMessage = '';
+  if (percentageScore >= 70) {
+    resultMessage = `Congratulations! You scored ${percentageScore}% (${score}/10). Well done!`;
+  } else {
+    resultMessage = `You scored ${percentageScore}% (${score}/10). Keep practicing!`;
+  }
+
+  // Display the result message and feedback
+  resultDiv.innerHTML = `
+    <div class="score">
+      <p>Your Score: <span>${percentageScore}%</span></p>
+    </div>
+    <div class="feedback">
+      <p>${resultMessage}</p>
+      ${feedbackHTML}
+    </div>
+  `;
+  resultDiv.style.display = 'block';
+  resultDiv.style.backgroundColor = 'white'; // Add white background
+  resultDiv.style.maxWidth = '600px';
+  resultDiv.style.margin = '0 auto';
+});
+
+  </script>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const searchInput = document.querySelector(".search-bar input[type='text']");
+      const searchButton = document.querySelector(".search-bar button");
+  
+      searchButton.addEventListener("click", function() {
+        const searchQuery = searchInput.value.toLowerCase().trim();
+  
+        // Check if search query matches any of the available subjects
+        if (searchQuery === "c") {
+          // Redirect to C.html
+          window.location.href = "/c.html";
+        } else if (searchQuery === "c++") {
+          // Redirect to C++.html
+          window.location.href = "/c++.html";
+        }
+        else if (searchQuery === "home") {
+          // Redirect to C++.html
+          window.location.href = "/project.html";
+        }
+        else if (searchQuery === "syllabus") {
+          // Redirect to C++.html
+          window.location.href = "/syllabus.html";
+        }
+        else if (searchQuery === "subject") {
+          // Redirect to C++.html
+          window.location.href = "/subject.html";
+        }
+        else if (searchQuery === "previous") {
+          // Redirect to C++.html
+          window.location.href = "/prev.html";
+        }
+        else if (searchQuery === "sepm") {
+                  
+          window.location.href = "/subjects.html";}
+          else if (searchQuery === "oop") {
+            
+            window.location.href = "/subjects.html";}
+            else if (searchQuery === "dsa") {
+            
+              window.location.href = "/subjects.html";}
+              else if (searchQuery === "isee") {
+            
+                window.location.href = "/subjects.html";}
+                else if (searchQuery === "dbms") {
+            
+                  window.location.href = "/subjects.html";}
+                  else if (searchQuery === "cn") {
+            
+                    window.location.href = "/subjects.html";}
+         else {
+          // Display "No results found" message
+          alert("No results found");
+        }
+      });
+    });
+</script>
+</html>
+

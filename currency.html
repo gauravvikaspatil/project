@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      
+    }
+
+   
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #7a5d5d;
+    }
+
+  
+    .converter {
+      width: 700px;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .input-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+
+    input[type="number"] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 80px;
+    }
+
+    select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: #fff;
+      transition: background-color 0.2s;
+      text-transform: uppercase;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 24px;
+      color: #444;
+    }
+
+
+    .converter::before {
+      content: "";
+      position: absolute;
+      top: -15px;
+      left: -15px;
+      right: -15px;
+      bottom: -15px;
+      background: linear-gradient(45deg, #007bff, #00bfff);
+      z-index: -1;
+      border-radius: 30px;
+      transform: rotate(-2deg);
+    }
+  </style>
+  <title>Currency Converter</title>
+</head>
+<body>
+  <div class="converter">
+    <h1>Currency Converter</h1>
+    <div class="input-container">
+      <input type="number" id="amount" placeholder="Amount">
+      <select id="fromCurrency"></select>
+      <span>to</span>
+      <select id="toCurrency"></select>
+      <button onclick="convertCurrency()">Convert</button>
+    </div>
+    <div id="result"></div>
+  </div>
+  <script>
+    const conversionRate = {
+      USD: { EUR: 0.85, GBP: 0.73, JPY: 110.34, INR: 74.21 },
+      EUR: { USD: 1.18, GBP: 0.86, JPY: 129.98, INR: 88.66 },
+      GBP: { USD: 1.37, EUR: 1.16, JPY: 151.58, INR: 103.21 },
+      JPY: { USD: 0.0091, EUR: 0.0077, GBP: 0.0066, INR: 0.67 },
+      INR: { USD: 0.0135, EUR: 0.0113, GBP: 0.0097, JPY: 1.49 },
+    };
+
+    const currencies = {
+      USD: "United States Dollar",
+      EUR: "Euro",
+      GBP: "British Pound Sterling",
+      JPY: "Japanese Yen",
+      INR: "Indian Rupee",
+    };
+
+    const fromCurrencySelect = document.getElementById("fromCurrency");
+    const toCurrencySelect = document.getElementById("toCurrency");
+
+    for (const currency in conversionRate) {
+      const option1 = new Option(currencies[currency], currency);
+      const option2 = new Option(currencies[currency], currency);
+      fromCurrencySelect.appendChild(option1);
+      toCurrencySelect.appendChild(option2);
+    }
+
+    function convertCurrency() {
+      const amount = parseFloat(document.getElementById("amount").value);
+      const fromCurrency = document.getElementById("fromCurrency").value;
+      const toCurrency = document.getElementById("toCurrency").value;
+
+      const convertedAmount = (amount * conversionRate[fromCurrency][toCurrency]).toFixed(2);
+
+      document.getElementById("result").innerHTML = `${amount} ${currencies[fromCurrency]} = ${convertedAmount} ${currencies[toCurrency]}`;
+    }
+  </script>
+</body>
+</html>
